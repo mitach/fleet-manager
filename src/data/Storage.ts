@@ -1,8 +1,8 @@
 import { generateId } from "../utils";
 
-type RecordId = string;
+export type RecordId = string;
 
-export type Record = {
+export interface Record {
     id: string
 }
 

@@ -1,3 +1,5 @@
+import { Collection } from "./data/Collection";
+import { CarService } from "./data/Service";
 import { LocalStorage } from "./data/Storage";
 
 console.log('dashboard');
@@ -6,31 +8,25 @@ start();
 
 async function start() {
     const storage = new LocalStorage();
+    const collection = new Collection(storage, 'cars');
+    const carService = new CarService(collection);
     
+    console.log(await carService.getAll());
     
     const carData = {
         make: 'Mitsubishi',
         model: 'Galant',
-    }
-    
-    const car = await storage.create('cars', carData);
-    
-    console.log(await storage.getAll('cars'));
-
-    console.log(await storage.getById('cars', car.id));
-
-    const newCarData = {
-        make: 'Nitsubishi',
-        model: 'Evo 9',
+        rentalPrice: 80,
+        rentedTo: 'Biser Stoynev',
+        bodyType: 'sedan' as const,
+        numberOfSeats: 5,
+        transmission: 'automatic' as const,
     }
 
-    await storage.update('cars', car.id, newCarData);
-        
-    console.log(await storage.getAll('cars'));
-    
-    console.log(await storage.getById('cars', car.id));
+    const car = await carService.create(carData);
 
-    await storage.delete('cars', car.id);
+    console.log(car);
 
-    console.log(await storage.getAll('cars'));
+    console.log(await carService.getAll());
+
 } 
