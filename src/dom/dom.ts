@@ -26,10 +26,10 @@ export function dom(type: string, props?: object, ...content: DomContent[]) {
     return element;
 }
 
-export const table: ElementFactory<HTMLTableElement> = dom.bind('table');
-export const thead: ElementFactory<HTMLTableSectionElement> = dom.bind('thead');
-export const tbody: ElementFactory<HTMLTableSectionElement> = dom.bind('tbody');
-export const tr: ElementFactory<HTMLTableRowElement> = dom.bind('tr');
-export const th: ElementFactory<HTMLTableCellElement> = dom.bind('th');
-export const td: ElementFactory<HTMLTableCellElement> = dom.bind('td');
-export const button: ElementFactory<HTMLButtonElement> = dom.bind('button');
+export const table: ElementFactory<HTMLTableElement> = dom.bind(null, 'table');
+export const thead: ElementFactory<HTMLTableSectionElement> = dom.bind(null, 'thead');
+export const tbody: ElementFactory<HTMLTableSectionElement> = dom.bind(null, 'tbody');
+export const tr: ElementFactory<HTMLTableRowElement> = dom.bind(null, 'tr');
+export const th: ElementFactory<HTMLTableCellElement> = dom.bind(null, 'th');
+export const td: ElementFactory<HTMLTableCellElement> = dom.bind(null, 'td');
+export const button: ElementFactory<HTMLButtonElement> = dom.bind(null, 'button');
