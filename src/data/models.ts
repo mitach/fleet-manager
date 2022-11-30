@@ -1,5 +1,8 @@
 import { Record, RecordId } from "./Storage";
 
+export type BodyType = 'sedan' | 'suv' | 'hatchback';
+export type CargoType = 'box' | 'flatbed' | 'van';
+export type Transmission = 'manual' | 'automatic';
 
 abstract class Vehicle implements Record {
     constructor(
@@ -18,9 +21,9 @@ export class Car extends Vehicle {
         public model: string,
         public rentalPrice: number,
         public rentedTo: string | null,
-        public bodyType: 'sedan' | 'suv' | 'hatchback',
+        public bodyType: BodyType,
         public numberOfSeats: number,
-        public transmission: 'manual' | 'automatic',
+        public transmission: Transmission,
     ) {
         super(id, make, model, rentalPrice, rentedTo);
     } 
@@ -32,7 +35,7 @@ export class Truck extends Vehicle {
         public model: string,
         public rentalPrice: number,
         public rentedTo: string | null,
-        public cargoType: 'box' | 'flatbed' | 'van',
+        public cargoType: CargoType,
         public capacity: number,
     ) {
         super(id, make, model, rentalPrice, rentedTo);
