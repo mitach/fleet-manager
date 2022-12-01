@@ -12,7 +12,7 @@ export function dom(type: string, props?: object, ...content: DomContent[]) {
                 element.addEventListener(eventName, props[propName]);
             } else if (propName.startsWith('data')) {
                 const dataName = propName.slice(4, 5).toLowerCase() + propName.slice(5);
-                element.dataset[dataName] = props[dataName];
+                element.dataset[dataName] = props[propName];
             } else {
                 element[propName] = props[propName];
             }

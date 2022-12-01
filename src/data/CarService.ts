@@ -6,7 +6,7 @@ type CarData = {
     make: string,
     model: string,
     rentalPrice: number,
-    rentedTo: string | null,
+    rentedTo?: string | null,
     bodyType: BodyType,
     numberOfSeats: number,
     transmission: Transmission,
