@@ -16,10 +16,14 @@ newCarSection.style.display = 'none';
 document.querySelector('.action.new').addEventListener('click', () => {
     if (newCarSection.style.display == 'none') {
         newCarSection.style.display = '';
+        newCarForm.reset();
         newCarSection.querySelector('h3').textContent = 'New Car';
         newCarSection.querySelector('.confirm').textContent = 'New Car';
+        editMode = false;
     } else {
         newCarSection.style.display = 'none';
+        history.pushState(null, '', window.location.pathname);
+        editMode = false;
     }
 });
 
@@ -36,17 +40,12 @@ const editor = new Editor(form, onSubmit.bind(null, tableManager), ['make', 'mod
 start();
 
 async function start() {
-    // document.querySelectorAll('.cancel').forEach(b => {
-    //     b.addEventListener('click', () => {
-    //         editor.clear();
-    //     });
-    // });
-
     document.querySelector('.cancel').addEventListener('click', () => {
         newCarSection.querySelector('h3').textContent = 'New Car';
         newCarSection.querySelector('.confirm').textContent = 'New Car';
         editMode = false;
         editor.clear();
+        history.pushState(null, '', window.location.pathname);
     });
 
     hidrate(tableManager);
@@ -109,9 +108,8 @@ async function onSubmit(tableManager: Table, {id, make, model, rentalPrice, rent
         const oldRow = document.querySelector(`[data-id='${id}']`);
 
         oldRow.replaceWith(newRow);
-
+        newCarSection.style.display = 'none';
         history.pushState(null, '', window.location.pathname);
-
         editMode = false;
     } else {
         const result = await carService.create({
@@ -130,9 +128,7 @@ async function onSubmit(tableManager: Table, {id, make, model, rentalPrice, rent
     newCarForm.reset();
 }
 
-
-
-function onActionClick(event) {    
+function onActionClick(event: any): void {    
     if (event.target.tagName == 'BUTTON') {
         const carRow: HTMLTableRowElement = event.target.parentElement.parentElement;
         const carId = carRow.dataset.id;
@@ -145,7 +141,7 @@ function onActionClick(event) {
     }
 }
 
-async function editCar(carId) {
+async function editCar(carId: string) {
     newCarSection.style.display = '';
     newCarSection.querySelector('h3').textContent = 'Edit Car';
     newCarSection.querySelector('.confirm').textContent = 'Edit Car';
