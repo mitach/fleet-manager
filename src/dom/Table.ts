@@ -16,7 +16,7 @@ export class Table {
 
     add(record: any) {
         const row = this.createRow(record);
-        this.element.appendChild(row);
+        this.element.querySelector('tbody').appendChild(row);
         this.records.push(record);
         this.rows.set(record, row);
     }
