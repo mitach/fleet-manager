@@ -33,3 +33,4 @@ export const tr: ElementFactory<HTMLTableRowElement> = dom.bind(null, 'tr');
 export const th: ElementFactory<HTMLTableCellElement> = dom.bind(null, 'th');
 export const td: ElementFactory<HTMLTableCellElement> = dom.bind(null, 'td');
 export const button: ElementFactory<HTMLButtonElement> = dom.bind(null, 'button');
+export const a: ElementFactory<HTMLButtonElement> = dom.bind(null, 'a');
