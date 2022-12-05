@@ -3,9 +3,7 @@ import { CarService } from "./data/CarService";
 import { LocalStorage } from "./data/Storage";
 import { TruckService } from "./data/TruckService";
 import { Table } from "./dom/Table";
-import { a, button, td, tr } from "./dom/dom";
-
-console.log('dashboard');
+import { a, td, tr } from "./dom/dom";
 
 const storage = new LocalStorage();
 const carCollection = new Collection(storage, 'cars');
@@ -31,15 +29,12 @@ async function hidrate(tableManager: Table) {
     const params = new URLSearchParams(window.location.search);
     const type = params.get('type');
     
-    console.log(params.has('availableOnly'));
-
     const filteredVehicles = [];
 
     for (let item of vehicles) {
         if (type == 'cars') {
             if (item.bodyType) {
                 filteredVehicles.push(item);
-                // tableManager.add(item);
             }
         } else if (type == 'trucks') {
             if (item.capacity) {
