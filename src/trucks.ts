@@ -1,5 +1,3 @@
-console.log('truck');
-
 import { TruckService } from "./data/TruckService";
 import { Collection } from "./data/Collection";
 import { Truck } from "./data/models";

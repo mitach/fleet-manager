@@ -64,8 +64,6 @@ function createDetails(vehicle: any): HTMLElement {
 }
 
 async function onEndContract() {
-    console.log('asdasd');
-
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
