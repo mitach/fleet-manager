@@ -1,5 +1,4 @@
 import { Collection } from "./Collection";
-import { Car } from "./models";
 import { Record, RecordId } from "./Storage";
 
 export interface Service<T, TData> {

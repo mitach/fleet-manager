@@ -2,10 +2,16 @@ import { Collection } from "./data/Collection";
 import { CarService } from "./data/CarService";
 import { Car } from "./data/models";
 import { LocalStorage } from "./data/Storage";
-import { button, td, tr } from "./dom/dom";
 import { Editor } from "./dom/Editor";
 import { Table } from "./dom/Table";
-import { hidrate } from "./utils";
+import { createCarRow, hidrate } from "./vehicleUtils";
+
+const storage = new LocalStorage();
+const collection = new Collection(storage, 'cars');
+const carService = new CarService(collection);
+
+const table = document.querySelector('table');
+const tableManager = new Table(table, createCarRow, identifyCar);
 
 document.querySelector('tbody').addEventListener('click', onActionClick);
 
@@ -28,14 +34,8 @@ document.querySelector('.action.new').addEventListener('click', () => {
     }
 });
 
-const storage = new LocalStorage();
-const collection = new Collection(storage, 'cars');
-const carService = new CarService(collection);
-
 let editMode = false;
 
-const table = document.querySelector('table');
-const tableManager = new Table(table, createCarRow, identifyCar);
 const form = document.getElementById('new-car') as HTMLFormElement;
 const editor = new Editor(form, onSubmit.bind(null, tableManager), ['make', 'model', 'rentalPrice', 'rentedTo', 'bodyType', 'numberOfSeats', 'transmission']);
 start();
@@ -48,7 +48,6 @@ async function start() {
         editor.clear();
         history.pushState(null, '', window.location.pathname);
     });
-
 }
 
 hidrate(carService, tableManager);
@@ -57,25 +56,7 @@ function identifyCar(cars: Car[], id: string) {
     return cars.find(c => c.id == id);
 }
 
-function createCarRow(car: Car): HTMLTableRowElement {
-    const row = tr({dataId: car.id},
-        td({}, car.id),
-        td({}, car.make),
-        td({}, car.model),
-        td({}, `${car.bodyType.charAt(0).toUpperCase()}${car.bodyType.slice(1)}`),
-        td({}, car.numberOfSeats.toString()),
-        td({}, `${car.transmission.charAt(0).toUpperCase()}${car.transmission.slice(1)}`),
-        td({}, `$${car.rentalPrice}/day`),
-        td({}, 
-            button({className: 'action edit'}, 'Edit'), 
-            button({className: 'action delete'} , 'Delete')
-        ),
-    );
-
-    return row;
-}
-
-async function onSubmit(tableManager: Table, {id, make, model, rentalPrice, rentedTo, bodyType, numberOfSeats, transmission}) {
+async function onSubmit(tableManager: Table, {type, make, model, rentalPrice, bodyType, numberOfSeats, transmission}) {
     if(Number.isNaN(Number(numberOfSeats))) {
         throw TypeError('Invalid number of seats.');
     }
@@ -89,6 +70,7 @@ async function onSubmit(tableManager: Table, {id, make, model, rentalPrice, rent
         const id = params.get('edit');
 
         const result = await carService.update(id, {
+            type,
             make,
             model,
             rentalPrice: Number(rentalPrice),
@@ -107,6 +89,7 @@ async function onSubmit(tableManager: Table, {id, make, model, rentalPrice, rent
         editMode = false;
     } else {
         const result = await carService.create({
+            type: 'Car',
             make,
             model,
             rentalPrice: Number(rentalPrice),

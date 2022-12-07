@@ -33,11 +33,11 @@ async function hidrate(tableManager: Table) {
 
     for (let item of vehicles) {
         if (type == 'cars') {
-            if (item.bodyType) {
+            if (item.type == 'Car') {
                 filteredVehicles.push(item);
             }
         } else if (type == 'trucks') {
-            if (item.capacity) {
+            if (item.type == 'Truck') {
                 filteredVehicles.push(item);
             }
         } else {
@@ -61,7 +61,7 @@ async function hidrate(tableManager: Table) {
 function createVehicleRow(vehicle: any): HTMLTableRowElement {
     const row = tr({dataId: vehicle.id},
         td({}, vehicle.id),
-        td({}, `${vehicle.bodyType ? 'Car' : 'Truck'}`),
+        td({}, vehicle.type),
         td({}, vehicle.make),
         td({}, vehicle.model),
         td({}, `$${vehicle.rentalPrice}/day`),

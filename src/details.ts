@@ -11,11 +11,7 @@ const truckCollection = new Collection(storage, 'trucks');
 const carService = new CarService(carCollection);
 const truckService = new TruckService(truckCollection);
 
-start();
-
-async function start() {
-    hidrate();
-}
+hidrate();
 
 async function hidrate() {
     const params = new URLSearchParams(window.location.search);

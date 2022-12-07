@@ -6,6 +6,7 @@ export type Transmission = 'manual' | 'automatic';
 
 abstract class Vehicle implements Record {
     constructor(
+        public type: string,
         public id: RecordId,
         public make: string,
         public model: string,
@@ -16,6 +17,7 @@ abstract class Vehicle implements Record {
 
 export class Car extends Vehicle {
     constructor(
+        public type: string = 'Car',
         public id: RecordId,
         public make: string,
         public model: string,
@@ -25,12 +27,14 @@ export class Car extends Vehicle {
         public numberOfSeats: number,
         public transmission: Transmission,
     ) {
-        super(id, make, model, rentalPrice, rentedTo);
+        super(type, id, make, model, rentalPrice, rentedTo);
     } 
 }
 
 export class Truck extends Vehicle {
-    constructor(        public id: RecordId,
+    constructor(
+        public type: string = 'Truck',
+        public id: RecordId,
         public make: string,
         public model: string,
         public rentalPrice: number,
@@ -38,6 +42,6 @@ export class Truck extends Vehicle {
         public cargoType: CargoType,
         public capacity: number,
     ) {
-        super(id, make, model, rentalPrice, rentedTo);
+        super(type, id, make, model, rentalPrice, rentedTo);
     }
 }

@@ -3,6 +3,7 @@ import { VehicleService } from "./Service";
 import { Record } from "./Storage";
 
 type CarData = {
+    type: 'Car',
     make: string,
     model: string,
     rentalPrice: number,
@@ -17,6 +18,7 @@ export class CarService extends VehicleService<Car, CarData> {
         const data = record as any;
 
         const result = new Car(
+            data.type,
             data.id,
             data.make,
             data.model,

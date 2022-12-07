@@ -2,10 +2,9 @@ import { TruckService } from "./data/TruckService";
 import { Collection } from "./data/Collection";
 import { Truck } from "./data/models";
 import { LocalStorage } from "./data/Storage";
-import { button, td, tr } from "./dom/dom";
 import { Editor } from "./dom/Editor";
 import { Table } from "./dom/Table";
-import { hidrate } from "./utils";
+import { createTruckRow, hidrate } from "./vehicleUtils";
 
 document.querySelector('tbody').addEventListener('click', onActionClick);
 
@@ -57,24 +56,7 @@ function identifyTruck(trucks: Truck[], id: string) {
     return trucks.find(c => c.id == id);
 }
 
-function createTruckRow(truck: Truck): HTMLTableRowElement {
-    const row = tr({dataId: truck.id},
-        td({}, truck.id),
-        td({}, truck.make),
-        td({}, truck.model),
-        td({}, `${truck.cargoType.charAt(0).toUpperCase()}${truck.cargoType.slice(1)}`),
-        td({}, `${truck.capacity.toString()} tons`),
-        td({}, `$${truck.rentalPrice}/day`),
-        td({}, 
-            button({className: 'action edit'}, 'Edit'), 
-            button({className: 'action delete'} , 'Delete')
-        ),
-    );
-
-    return row;
-}
-
-async function onSubmit(tableManager: Table, {id, make, model, rentalPrice, rentedTo, cargoType, capacity}) {
+async function onSubmit(tableManager: Table, {type, make, model, rentalPrice, cargoType, capacity}) {
     if(Number.isNaN(Number(capacity))) {
         throw TypeError('Invalid number of capacity.');
     }
@@ -88,6 +70,7 @@ async function onSubmit(tableManager: Table, {id, make, model, rentalPrice, rent
         const id = params.get('edit');
 
         const result = await truckService.update(id, {
+            type,
             make,
             model,
             rentalPrice: Number(rentalPrice),
@@ -105,6 +88,7 @@ async function onSubmit(tableManager: Table, {id, make, model, rentalPrice, rent
         editMode = false;
     } else {
         const result = await truckService.create({
+            type: 'Truck',
             make,
             model,
             rentalPrice: Number(rentalPrice),
