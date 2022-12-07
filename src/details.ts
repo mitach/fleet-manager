@@ -4,7 +4,6 @@ import { LocalStorage } from "./data/Storage";
 import { TruckService } from "./data/TruckService";
 import { button, div, form, h3, input, label, main, p, span, strong } from "./dom/dom";
 
-
 const storage = new LocalStorage();
 const carCollection = new Collection(storage, 'cars');
 const truckCollection = new Collection(storage, 'trucks');

@@ -4,7 +4,7 @@ import { Car } from "./data/models";
 import { LocalStorage } from "./data/Storage";
 import { Editor } from "./dom/Editor";
 import { Table } from "./dom/Table";
-import { createCarRow, hidrate } from "./vehicleUtils";
+import { createCarRow, hidrateOneType } from "./vehicleUtils";
 
 const storage = new LocalStorage();
 const collection = new Collection(storage, 'cars');
@@ -50,7 +50,7 @@ async function start() {
     });
 }
 
-hidrate(carService, tableManager);
+hidrateOneType(carService, tableManager);
 
 function identifyCar(cars: Car[], id: string) {
     return cars.find(c => c.id == id);

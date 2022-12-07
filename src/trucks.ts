@@ -4,7 +4,7 @@ import { Truck } from "./data/models";
 import { LocalStorage } from "./data/Storage";
 import { Editor } from "./dom/Editor";
 import { Table } from "./dom/Table";
-import { createTruckRow, hidrate } from "./vehicleUtils";
+import { createTruckRow, hidrateOneType } from "./vehicleUtils";
 
 document.querySelector('tbody').addEventListener('click', onActionClick);
 
@@ -47,10 +47,9 @@ async function start() {
         editor.clear();
         history.pushState(null, '', window.location.pathname);
     });
-
 }
 
-hidrate(truckService, tableManager);
+hidrateOneType(truckService, tableManager);
 
 function identifyTruck(trucks: Truck[], id: string) {
     return trucks.find(c => c.id == id);
