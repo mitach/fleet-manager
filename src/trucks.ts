@@ -5,6 +5,7 @@ import { LocalStorage } from "./data/Storage";
 import { button, td, tr } from "./dom/dom";
 import { Editor } from "./dom/Editor";
 import { Table } from "./dom/Table";
+import { hidrate } from "./utils";
 
 document.querySelector('tbody').addEventListener('click', onActionClick);
 
@@ -48,16 +49,9 @@ async function start() {
         history.pushState(null, '', window.location.pathname);
     });
 
-    hidrate(tableManager);
 }
 
-async function hidrate(tableManager: Table) {
-    const trucks = await truckService.getAll();
-
-    for (let item of trucks) {
-        tableManager.add(item);
-    }
-}
+hidrate(truckService, tableManager);
 
 function identifyTruck(trucks: Truck[], id: string) {
     return trucks.find(c => c.id == id);

@@ -1,10 +1,11 @@
-import { CarService } from "./data/CarService";
 import { Collection } from "./data/Collection";
+import { CarService } from "./data/CarService";
 import { Car } from "./data/models";
 import { LocalStorage } from "./data/Storage";
 import { button, td, tr } from "./dom/dom";
 import { Editor } from "./dom/Editor";
 import { Table } from "./dom/Table";
+import { hidrate } from "./utils";
 
 document.querySelector('tbody').addEventListener('click', onActionClick);
 
@@ -48,16 +49,9 @@ async function start() {
         history.pushState(null, '', window.location.pathname);
     });
 
-    hidrate(tableManager);
 }
 
-async function hidrate(tableManager: Table) {
-    const cars = await carService.getAll();
-
-    for (let item of cars) {
-        tableManager.add(item);
-    }
-}
+hidrate(carService, tableManager);
 
 function identifyCar(cars: Car[], id: string) {
     return cars.find(c => c.id == id);
