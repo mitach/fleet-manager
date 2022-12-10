@@ -3,7 +3,7 @@ export class Table {
     private rows: Map<object, HTMLTableRowElement> = new Map();
 
     constructor(
-        private element: HTMLTableElement,
+        public element: HTMLTableElement,
         private createRow: (record: any) => HTMLTableRowElement,
         private identify?: (records: any[], id: any) => any,
         records?: any[],
@@ -30,7 +30,30 @@ export class Table {
     }
 
     getRow(id: any): HTMLTableRowElement {
-        const record = this.get(id);
+        const record = this.get(id)
         return this.rows.get(record);
+    }
+
+    replace(id: any, newRecord: any) {
+        const record = this.get(id);
+        const index = this.records.findIndex(r => r == record);
+        const row = this.getRow(id);
+
+        const newRow = this.createRow(newRecord);
+        row.replaceWith(newRow);
+        this.rows.set(record, newRow);
+
+        this.records.splice(index, 1, newRecord);
+    }
+
+    remove(id: any) {
+        const record = this.get(id);
+        const index = this.records.findIndex(r => r == record);
+        const row = this.getRow(id);
+
+        row.remove();
+        this.rows.delete(record);
+
+        this.records.splice(index, 1);
     }
 }

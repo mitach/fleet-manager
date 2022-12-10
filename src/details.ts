@@ -1,7 +1,8 @@
-import { CarService } from "./data/CarService";
+import { CarData, CarService } from "./data/CarService";
 import { Collection } from "./data/Collection";
+import { Vehicle } from "./data/models";
 import { LocalStorage } from "./data/Storage";
-import { TruckService } from "./data/TruckService";
+import { TruckData, TruckService } from "./data/TruckService";
 import { button, div, form, h3, input, label, main, p, span, strong } from "./dom/dom";
 
 const storage = new LocalStorage();
@@ -15,13 +16,13 @@ hidrate();
 async function hidrate() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
-    
-    let vehicle: object;
-    try {
-        vehicle = await carService.getById(id);
-    } catch (error) {
-        vehicle = await truckService.getById(id);
-    }
+
+    const vehicles = [
+        ...await carService.getAll(),
+        ...await truckService.getAll()
+    ]
+
+    const vehicle = vehicles.find(x => x.id == id);
 
     const main = createDetails(vehicle);
     document.querySelector('main').replaceWith(main);
@@ -65,19 +66,20 @@ async function onEndContract() {
     const flag = confirm('Are you sure you want to end the contract?');
 
     if (flag) {
-        let vehicle: any;
-        try {
-            vehicle = await carService.getById(id);
-        } catch (error) {
-            vehicle = await truckService.getById(id);
-        }
+
+        const vehicles = [
+            ...await carService.getAll(),
+            ...await truckService.getAll()
+        ]
+    
+        const vehicle = vehicles.find(x => x.id == id);
 
         vehicle.rentedTo = '';
 
-        try {
-            await carService.update(id, vehicle);
-        } catch (error) {
-            await truckService.update(id, vehicle);
+        if (vehicle.type == 'Car') {
+            await carService.update(id, vehicle as CarData);
+        } else if (vehicle.type == 'Truck') {
+            await truckService.update(id, vehicle as TruckData);
         }
 
         const newRentalDiv = div({className: 'rental'},
@@ -111,19 +113,19 @@ async function onNewRentContract(e) {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
-    let vehicle: any;
-    try {
-        vehicle = await carService.getById(id);
-    } catch (error) {
-        vehicle = await truckService.getById(id);
-    }
-    
-    vehicle.rentedTo = formData.name;
+    const vehicles = [
+        ...await carService.getAll(),
+        ...await truckService.getAll()
+    ]
 
-    try {
-        await carService.update(id, vehicle);
-    } catch (error) {
-        await truckService.update(id, vehicle);
+    const vehicle = vehicles.find(x => x.id == id);
+    
+    vehicle.rentedTo = formData.name as string;
+
+    if (vehicle.type == 'Car') {
+        await carService.update(id, vehicle as CarData);
+    } else if (vehicle.type == 'Truck') {
+        await truckService.update(id, vehicle as TruckData);
     }
 
     const newRentalDiv = div({className: 'rental'},

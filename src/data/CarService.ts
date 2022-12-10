@@ -2,7 +2,7 @@ import { BodyType, Car, Transmission } from "./models";
 import { VehicleService } from "./Service";
 import { Record } from "./Storage";
 
-type CarData = {
+export type CarData = {
     type: 'Car',
     make: string,
     model: string,
@@ -45,9 +45,9 @@ export class CarService extends VehicleService<Car, CarData> {
             throw new TypeError('Incompatible record. Invalid property "rentalPrice"');
         }
 
-        if (typeof data.rentedTo != 'string' && typeof data.rentedTo != null) {
-            throw new TypeError('Incompatible record. Invalid property "rentedTo"');
-        }
+        // if (typeof data.rentedTo != 'string' && typeof data.rentedTo != null) {
+        //     throw new TypeError('Incompatible record. Invalid property "rentedTo"');
+        // }
 
         if (data.bodyType != 'sedan' && data.bodyType != 'suv' && data.bodyType != 'hatchback') {
             throw new TypeError('Incompatible record. Invalid property "bodyType"');

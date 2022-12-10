@@ -4,7 +4,7 @@ export type BodyType = 'sedan' | 'suv' | 'hatchback';
 export type CargoType = 'box' | 'flatbed' | 'van';
 export type Transmission = 'manual' | 'automatic';
 
-abstract class Vehicle implements Record {
+export abstract class Vehicle implements Record {
     constructor(
         public type: string,
         public id: RecordId,

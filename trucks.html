@@ -26,83 +26,88 @@
             <button class="action new">Add New Truck</button>
         </section>
 
-        <section class="editor" id="new-truck-section">
-            <h3>New Truck</h3>
-            <form class="align" id="new-truck">
-                <label>
-                    <span>Make</span>
-                    <input type="text" name="make">
-                </label>
+        <div id="forms">
 
-                <label>
-                    <span>Model</span>
-                    <input type="text" name="model">
-                </label>
+            <section class="editor" id="new-truck-section">
+                <h3>New Truck</h3>
+                <form class="align" id="new-truck">
+                    <label>
+                        <span>Make</span>
+                        <input type="text" name="make">
+                    </label>
 
-                <label>
-                    <span>Cargo</span>
-                    <select name="cargoType">
-                        <option value="box">Box truck</option>
-                        <option value="flatbed">Flatbed</option>
-                        <option value="van">Van</option>
-                    </select>
-                </label>
+                    <label>
+                        <span>Model</span>
+                        <input type="text" name="model">
+                    </label>
 
-                <label>
-                    <span>Capacity</span>
-                    <input type="number" name="capacity">
-                </label>
+                    <label>
+                        <span>Cargo</span>
+                        <select name="cargoType">
+                            <option value="box">Box truck</option>
+                            <option value="flatbed">Flatbed</option>
+                            <option value="van">Van</option>
+                        </select>
+                    </label>
 
-                <label>
-                    <span>Rental price</span>
-                    <input type="number" name="rentalPrice">
-                </label>
+                    <label>
+                        <span>Capacity</span>
+                        <input type="number" name="capacity">
+                    </label>
 
-                <div>
-                    <button class="action confirm">Add Car</button>
-                    <button class="action cancel">Cancel</button>
-                </div>
-            </form>
-        </section>
+                    <label>
+                        <span>Rental price</span>
+                        <input type="number" name="rentalPrice">
+                    </label>
 
-        <!-- <section class="editor">
-            <h3>Edit Truck</h3>
-            <form class="align">
-                <label>
-                    <span>Make</span>
-                    <input type="text" name="make">
-                </label>
+                    <div>
+                        <button class="action confirm">Add Car</button>
+                        <button class="action cancel">Cancel</button>
+                    </div>
+                </form>
+            </section>
 
-                <label>
-                    <span>Model</span>
-                    <input type="text" name="model">
-                </label>
+            <section class="editor" id="edit-truck-section">
+                <h3>Edit Truck</h3>
+                <form class="align" id="edit-truck">
+                    <input type="hidden" name="id">
+                    <input type="hidden" name="rentedTo">
+                    <label>
+                        <span>Make</span>
+                        <input type="text" name="make">
+                    </label>
 
-                <label>
-                    <span>Cargo</span>
-                    <select name="cargoType">
-                        <option value="box">Box truck</option>
-                        <option value="flatbed">Flatbed</option>
-                        <option value="van">Van</option>
-                    </select>
-                </label>
+                    <label>
+                        <span>Model</span>
+                        <input type="text" name="model">
+                    </label>
 
-                <label>
-                    <span>Capacity</span>
-                    <input type="number" name="capacity">
-                </label>
+                    <label>
+                        <span>Cargo</span>
+                        <select name="cargoType">
+                            <option value="box">Box truck</option>
+                            <option value="flatbed">Flatbed</option>
+                            <option value="van">Van</option>
+                        </select>
+                    </label>
 
-                <label>
-                    <span>Rental price</span>
-                    <input type="number" name="rentalPrice">
-                </label>
+                    <label>
+                        <span>Capacity</span>
+                        <input type="number" name="capacity">
+                    </label>
 
-                <div>
-                    <button class="action confirm">Save Truck</button>
-                    <button class="action cancel">Cancel</button>
-                </div>
-            </form>
-        </section> -->
+                    <label>
+                        <span>Rental price</span>
+                        <input type="number" name="rentalPrice">
+                    </label>
+
+                    <div>
+                        <button class="action confirm">Edit Truck</button>
+                        <button class="action cancel">Cancel</button>
+                    </div>
+                </form>
+            </section>
+        </div>
 
         <main>
 
